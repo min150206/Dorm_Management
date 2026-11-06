@@ -1,5 +1,5 @@
-com\dorm\SecondaryController.class
+com\ui\login\login_page.class
 module-info.class
+com\dorm\SecondaryController.class
 com\dorm\PrimaryController.class
-com\UI\login\login_page.class
 com\dorm\App.class
