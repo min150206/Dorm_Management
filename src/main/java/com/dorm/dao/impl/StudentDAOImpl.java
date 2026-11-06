@@ -7,6 +7,7 @@ import com.dorm.model.enums.Gender;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +31,12 @@ public class StudentDAOImpl extends AbstractDAO<Student, String> implements Stud
 
     @Override
     protected Student mapRow(ResultSet rs) throws SQLException {
+        int accountIdRaw = rs.getInt("account_id");
+        Integer accountId = rs.wasNull() ? null : accountIdRaw;
         String genderStr = rs.getString("gender");
         return new Student(
                 rs.getString("student_id"),
-                rs.getInt("account_id"),
+                accountId,
                 rs.getString("full_name"),
                 rs.getString("phone"),
                 genderStr != null ? Gender.fromString(genderStr) : null
@@ -55,7 +58,11 @@ public class StudentDAOImpl extends AbstractDAO<Student, String> implements Stud
     @Override
     protected void setInsertParameters(PreparedStatement ps, Student entity) throws SQLException {
         ps.setString(1, entity.getStudentId());
-        ps.setInt(2, entity.getAccountId());
+        if (entity.getAccountId() != null) {
+            ps.setInt(2, entity.getAccountId());
+        } else {
+            ps.setNull(2, Types.INTEGER);
+        }
         ps.setString(3, entity.getFullName());
         ps.setString(4, entity.getPhone());
         ps.setString(5, entity.getGender() != null ? entity.getGender().name() : null);
@@ -63,7 +70,11 @@ public class StudentDAOImpl extends AbstractDAO<Student, String> implements Stud
 
     @Override
     protected void setUpdateParameters(PreparedStatement ps, Student entity) throws SQLException {
-        ps.setInt(1, entity.getAccountId());
+        if (entity.getAccountId() != null) {
+            ps.setInt(1, entity.getAccountId());
+        } else {
+            ps.setNull(1, Types.INTEGER);
+        }
         ps.setString(2, entity.getFullName());
         ps.setString(3, entity.getPhone());
         ps.setString(4, entity.getGender() != null ? entity.getGender().name() : null);

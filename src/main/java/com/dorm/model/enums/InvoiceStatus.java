@@ -2,8 +2,7 @@ package com.dorm.model.enums;
 
 public enum InvoiceStatus {
     UNPAID,
-    PAID,
-    OVERDUE;
+    PAID;
 
     public static InvoiceStatus fromString(String value) {
         if (value == null) return null;

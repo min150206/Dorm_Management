@@ -2,8 +2,7 @@ package com.dorm.model.enums;
 
 public enum RequestStatus {
     PENDING,
-    APPROVED,
-    REJECTED,
+    PROCESSING,
     RESOLVED;
 
     public static RequestStatus fromString(String value) {

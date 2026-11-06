@@ -2,8 +2,7 @@ package com.dorm.model.enums;
 
 public enum Gender {
     MALE,
-    FEMALE,
-    OTHER;
+    FEMALE;
 
     public static Gender fromString(String value) {
         if (value == null) return null;

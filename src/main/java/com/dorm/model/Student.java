@@ -13,7 +13,7 @@ import com.dorm.model.enums.Gender;
  */
 public class Student extends BaseEntity<String> {
 
-    private int    accountId;
+    private Integer accountId;
     private String fullName;
     private String phone;
     private Gender gender;
@@ -21,7 +21,7 @@ public class Student extends BaseEntity<String> {
     public Student() {
     }
 
-    public Student(String studentId, int accountId, String fullName, String phone, Gender gender) {
+    public Student(String studentId, Integer accountId, String fullName, String phone, Gender gender) {
         super(studentId);
         this.accountId = accountId;
         this.fullName  = fullName;
@@ -34,8 +34,8 @@ public class Student extends BaseEntity<String> {
     public String getStudentId()                  { return getId(); }
     public void   setStudentId(String id)         { setId(id); }
 
-    public int    getAccountId()                  { return accountId; }
-    public void   setAccountId(int accountId)     { this.accountId = accountId; }
+    public Integer getAccountId()                 { return accountId; }
+    public void    setAccountId(Integer accountId) { this.accountId = accountId; }
 
     public String getFullName()                   { return fullName; }
     public void   setFullName(String fullName)    { this.fullName = fullName; }

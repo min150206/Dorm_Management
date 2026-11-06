@@ -2,7 +2,8 @@ package com.dorm.model.enums;
 
 public enum Role {
     ADMIN,
-    STUDENT;
+    STUDENT,
+    STAFF;
 
     public static Role fromString(String value) {
         if (value == null) return null;

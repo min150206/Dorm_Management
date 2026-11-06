@@ -3,7 +3,7 @@ package com.dorm.model.enums;
 public enum ContractStatus {
     ACTIVE,
     EXPIRED,
-    CANCELLED;
+    TERMINATED;
 
     public static ContractStatus fromString(String value) {
         if (value == null) return null;
