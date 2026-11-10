@@ -6,16 +6,19 @@ import java.sql.SQLException;
 
 /**
  * Singleton database connection manager for PostgreSQL.
- * Provides a thread-safe single connection instance.
+ * The desktop application shares one connection; service transactions synchronize on this manager.
  *
- * Configure the URL, USER, and PASSWORD constants before first use.
+ * Configure DORM_DB_URL, DORM_DB_USER and DORM_DB_PASSWORD before first use.
  */
 public class DatabaseConnection {
 
     // ── Connection configuration ──────────────────────────────────────
-    private static final String URL  = "jdbc:postgresql://localhost:5432/dorm_management";
-    private static final String USER = "postgres";
-    private static final String PASS = "postgres";
+    private static String setting(String name, String fallback) {
+        return System.getProperty(name, System.getenv().getOrDefault(name, fallback));
+    }
+    private static final String URL  = setting("DORM_DB_URL", "jdbc:postgresql://localhost:5432/dorm_management");
+    private static final String USER = setting("DORM_DB_USER", "postgres");
+    private static final String PASS = setting("DORM_DB_PASSWORD", "postgres");
 
     private static volatile DatabaseConnection instance;
     private Connection connection;
@@ -63,6 +66,10 @@ public class DatabaseConnection {
     }
 
     /** Closes the connection and resets the singleton. */
+    public static void closeIfOpen() {
+        if (instance != null) instance.closeConnection();
+    }
+
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

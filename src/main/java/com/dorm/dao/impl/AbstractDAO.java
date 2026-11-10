@@ -63,7 +63,7 @@ public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializa
         String sql = getInsertSQL();
         try (PreparedStatement ps = getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             setInsertParameters(ps, entity);
-            ps.executeUpdate();
+            if (ps.executeUpdate() != 1) throw new SQLException("Insert did not create exactly one row.");
 
             // For SERIAL PKs, retrieve the generated key
             try (ResultSet keys = ps.getGeneratedKeys()) {
@@ -82,7 +82,7 @@ public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializa
         String sql = getUpdateSQL();
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             setUpdateParameters(ps, entity);
-            ps.executeUpdate();
+            if (ps.executeUpdate() != 1) throw new SQLException("Record no longer exists.");
         }
         return entity;
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox spacing="16" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.ui.controller.Login">
+    <padding><Insets top="65" right="300" bottom="50" left="300"/></padding>
+    <Label text="Dormitory Management" styleClass="title"/>
+    <Label text="Log in to manage your dormitory records."/>
+    <Label text="Email"/>
+    <TextField fx:id="loginEmail" id="login-email" promptText="Email"/>
+    <Label text="Password"/>
+    <PasswordField fx:id="loginPassword" id="login-password" promptText="Password"/>
+    <Button id="login-button" text="Log in" onAction="#logIn" defaultButton="true" maxWidth="Infinity"/>
+    <Button text="Register student" onAction="#registerStudent"/>
+    <Button fx:id="setupAdminButton" text="Create first admin" onAction="#createAdmin"/>
+    <Label fx:id="loginMessage" wrapText="true"/>
+</VBox>

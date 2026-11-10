@@ -76,7 +76,8 @@ public class AccountDAOImpl extends AbstractDAO<Account, Integer> implements Acc
 
     @Override
     public Optional<Account> findByEmailAndPassword(String email, String password) throws SQLException {
-        return querySingle("SELECT * FROM account WHERE email = ? AND password = ?", email, password);
+        Optional<Account> account = findByEmail(email);
+        return account.filter(a -> com.dorm.logic.code.PasswordUtil.matches(password, a.getPassword()));
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.dorm.service;
+package com.dorm.logic.itf;
 
 import com.dorm.model.Room;
 import com.dorm.model.RoomType;
@@ -32,6 +32,8 @@ public interface RoomService {
     List<Room> getAllRooms() throws SQLException;
 
     List<Room> getRoomsByBuilding(String building) throws SQLException;
+
+    List<Room> getRoomsByBuilding(String building, RoomStatus status) throws SQLException;
 
     List<Room> getRoomsByStatus(RoomStatus status) throws SQLException;
 

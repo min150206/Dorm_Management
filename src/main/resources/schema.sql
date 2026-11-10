@@ -66,3 +66,10 @@ CREATE TABLE IF NOT EXISTS invoice (
     invoice_status VARCHAR(20) NOT NULL DEFAULT 'UNPAID' CHECK (invoice_status IN ('UNPAID', 'PAID')),
     paid_time TIMESTAMP
 );
+
+-- A student cannot occupy two rooms at once, even from two application windows.
+CREATE UNIQUE INDEX IF NOT EXISTS one_active_contract_per_student
+    ON contract(student_id) WHERE contract_status = 'ACTIVE';
+CREATE INDEX IF NOT EXISTS contract_room_index ON contract(room_id);
+CREATE INDEX IF NOT EXISTS request_student_index ON request(student_id);
+CREATE INDEX IF NOT EXISTS invoice_contract_index ON invoice(contract_id);

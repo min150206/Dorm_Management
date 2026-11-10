@@ -1,4 +1,4 @@
-package com.dorm.service;
+package com.dorm.logic.itf;
 
 import com.dorm.model.Request;
 import com.dorm.model.enums.RequestStatus;
