@@ -3,12 +3,6 @@ package com.dorm.model;
 import com.dorm.model.enums.InvoiceStatus;
 import java.sql.Timestamp;
 
-/**
- * Entity representing the 'invoice' table.
- *
- * Relationships:
- *  - N-to-1 with Contract (bills, via contract_id FK)
- */
 public class Invoice extends BaseEntity<Integer> {
 
     private int           contractId;
@@ -30,8 +24,6 @@ public class Invoice extends BaseEntity<Integer> {
         this.paidTime      = paidTime;
     }
 
-    // ── Getters & Setters ─────────────────────────────────────────────
-
     public Integer       getInvoiceId()                                 { return getId(); }
     public void          setInvoiceId(Integer id)                        { setId(id); }
 
@@ -49,14 +41,6 @@ public class Invoice extends BaseEntity<Integer> {
 
     public Timestamp     getPaidTime()                                  { return paidTime; }
     public void          setPaidTime(Timestamp paidTime)                { this.paidTime = paidTime; }
-
-    // ── BaseEntity contract ───────────────────────────────────────────
-
-    @Override
-    public String getTableName()    { return "invoice"; }
-
-    @Override
-    public String getIdColumnName() { return "invoice_id"; }
 
     @Override
     public String toString() {

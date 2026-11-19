@@ -2,15 +2,6 @@ package com.dorm.model;
 
 import com.dorm.model.enums.Gender;
 
-/**
- * Entity representing the 'student' table.
- * PK is student_id (VARCHAR), so this entity uses String as its ID type.
- *
- * Relationships:
- *  - N-to-1 with Account  (has profile, via account_id FK)
- *  - 1-to-N with Request  (submits)
- *  - 1-to-N with Contract (signs)
- */
 public class Student extends BaseEntity<String> {
 
     private Integer accountId;
@@ -29,8 +20,6 @@ public class Student extends BaseEntity<String> {
         this.gender    = gender;
     }
 
-    // ── Getters & Setters ─────────────────────────────────────────────
-
     public String getStudentId()                  { return getId(); }
     public void   setStudentId(String id)         { setId(id); }
 
@@ -45,14 +34,6 @@ public class Student extends BaseEntity<String> {
 
     public Gender getGender()                     { return gender; }
     public void   setGender(Gender gender)        { this.gender = gender; }
-
-    // ── BaseEntity contract ───────────────────────────────────────────
-
-    @Override
-    public String getTableName()    { return "student"; }
-
-    @Override
-    public String getIdColumnName() { return "student_id"; }
 
     @Override
     public String toString() {

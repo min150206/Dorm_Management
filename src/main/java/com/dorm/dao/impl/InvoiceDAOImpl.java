@@ -9,12 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Concrete DAO implementation for the 'invoice' table.
- */
 public class InvoiceDAOImpl extends AbstractDAO<Invoice, Integer> implements InvoiceDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -56,7 +51,7 @@ public class InvoiceDAOImpl extends AbstractDAO<Invoice, Integer> implements Inv
         ps.setString(2, entity.getTitle());
         ps.setLong(3, entity.getFee());
         ps.setString(4, entity.getInvoiceStatus().name());
-        ps.setTimestamp(5, entity.getPaidTime());   // nullable
+        ps.setTimestamp(5, entity.getPaidTime());
     }
 
     @Override
@@ -68,8 +63,6 @@ public class InvoiceDAOImpl extends AbstractDAO<Invoice, Integer> implements Inv
         ps.setTimestamp(5, entity.getPaidTime());
         ps.setInt(6, entity.getInvoiceId());
     }
-
-    // ── InvoiceDAO-specific methods ───────────────────────────────────
 
     @Override
     public List<Invoice> findByContractId(int contractId) throws SQLException {

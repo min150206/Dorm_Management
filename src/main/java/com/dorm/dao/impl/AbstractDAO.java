@@ -10,53 +10,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Abstract DAO implementation that provides reusable CRUD logic via JDBC.
- *
- * Concrete subclasses only need to implement:
- *   - {@link #mapRow(ResultSet)}         — convert a ResultSet row → entity
- *   - {@link #setInsertParameters(PreparedStatement, BaseEntity)}  — bind INSERT params
- *   - {@link #setUpdateParameters(PreparedStatement, BaseEntity)}  — bind UPDATE params
- *   - {@link #getInsertSQL()}            — the INSERT statement
- *   - {@link #getUpdateSQL()}            — the UPDATE statement
- *
- * @param <T>  entity type
- * @param <ID> primary-key type
+/*
+ * Base JDBC DAO providing common CRUD implementations.
+ * Subclasses provide table specifics and parameter mappings.
  */
 public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializable>
         implements GenericDAO<T, ID> {
 
-    // ── Connection helper ─────────────────────────────────────────────
-
-    /** Shortcut to obtain the shared JDBC connection. */
     protected Connection getConnection() {
         return DatabaseConnection.getInstance().getConnection();
     }
 
-    // ── Abstract template methods (subclasses must implement) ─────────
-
-    /** Map the current ResultSet row to an entity instance. */
+    // Template methods for entity-specific mappings and SQL statements
     protected abstract T mapRow(ResultSet rs) throws SQLException;
-
-    /** Return the table name for this entity (e.g. "account"). */
     protected abstract String getTableName();
-
-    /** Return the primary-key column name (e.g. "account_id"). */
     protected abstract String getIdColumnName();
-
-    /** Return the full INSERT SQL (with ? placeholders). */
     protected abstract String getInsertSQL();
-
-    /** Return the full UPDATE SQL (with ? placeholders). */
     protected abstract String getUpdateSQL();
-
-    /** Bind values into a PreparedStatement for INSERT. */
     protected abstract void setInsertParameters(PreparedStatement ps, T entity) throws SQLException;
-
-    /** Bind values into a PreparedStatement for UPDATE. */
     protected abstract void setUpdateParameters(PreparedStatement ps, T entity) throws SQLException;
-
-    // ── GenericDAO implementation ─────────────────────────────────────
 
     @Override
     public T save(T entity) throws SQLException {
@@ -65,7 +37,7 @@ public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializa
             setInsertParameters(ps, entity);
             ps.executeUpdate();
 
-            // For SERIAL PKs, retrieve the generated key
+            // Retrieve auto-generated ID for SERIAL columns
             try (ResultSet keys = ps.getGeneratedKeys()) {
                 if (keys.next()) {
                     @SuppressWarnings("unchecked")
@@ -146,9 +118,7 @@ public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializa
         }
     }
 
-    // ── Utility helpers for subclasses ────────────────────────────────
-
-    /** Execute a parameterised query and map every row. */
+    // Helper to execute a query with parameters and map all rows
     protected List<T> queryList(String sql, Object... params) throws SQLException {
         List<T> results = new ArrayList<>();
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
@@ -164,7 +134,7 @@ public abstract class AbstractDAO<T extends BaseEntity<ID>, ID extends Serializa
         return results;
     }
 
-    /** Execute a parameterised query and return the first row (or empty). */
+    // Helper to query a single record (returns empty if not found)
     protected Optional<T> querySingle(String sql, Object... params) throws SQLException {
         try (PreparedStatement ps = getConnection().prepareStatement(sql)) {
             for (int i = 0; i < params.length; i++) {

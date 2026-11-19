@@ -8,12 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
-/**
- * Concrete DAO implementation for the 'room_type' table.
- */
 public class RoomTypeDAOImpl extends AbstractDAO<RoomType, Integer> implements RoomTypeDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -59,8 +54,6 @@ public class RoomTypeDAOImpl extends AbstractDAO<RoomType, Integer> implements R
         ps.setLong(3, entity.getPrice());
         ps.setInt(4, entity.getRoomTypeId());
     }
-
-    // ── RoomTypeDAO-specific methods ──────────────────────────────────
 
     @Override
     public Optional<RoomType> findByTypeName(String typeName) throws SQLException {

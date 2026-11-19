@@ -1,11 +1,5 @@
 package com.dorm.model;
 
-/**
- * Entity representing the 'room_type' table.
- *
- * Relationships:
- *  - 1-to-N with Room (categorizes)
- */
 public class RoomType extends BaseEntity<Integer> {
 
     private String typeName;
@@ -22,8 +16,6 @@ public class RoomType extends BaseEntity<Integer> {
         this.price    = price;
     }
 
-    // ── Getters & Setters ─────────────────────────────────────────────
-
     public Integer getRoomTypeId()                  { return getId(); }
     public void    setRoomTypeId(Integer id)         { setId(id); }
 
@@ -35,14 +27,6 @@ public class RoomType extends BaseEntity<Integer> {
 
     public long    getPrice()                       { return price; }
     public void    setPrice(long price)             { this.price = price; }
-
-    // ── BaseEntity contract ───────────────────────────────────────────
-
-    @Override
-    public String getTableName()    { return "room_type"; }
-
-    @Override
-    public String getIdColumnName() { return "room_type_id"; }
 
     @Override
     public String toString() {
