@@ -10,12 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Concrete DAO implementation for the 'account' table.
- */
 public class AccountDAOImpl extends AbstractDAO<Account, Integer> implements AccountDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -61,8 +56,6 @@ public class AccountDAOImpl extends AbstractDAO<Account, Integer> implements Acc
         ps.setString(3, entity.getRole().name());
         ps.setInt(4, entity.getAccountId());
     }
-
-    // ── AccountDAO-specific methods ───────────────────────────────────
 
     @Override
     public Optional<Account> findByEmail(String email) throws SQLException {

@@ -9,12 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Concrete DAO implementation for the 'room' table.
- */
 public class RoomDAOImpl extends AbstractDAO<Room, Integer> implements RoomDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -68,8 +63,6 @@ public class RoomDAOImpl extends AbstractDAO<Room, Integer> implements RoomDAO {
         ps.setString(5, entity.getRoomStatus().name());
         ps.setInt(6, entity.getRoomId());
     }
-
-    // ── RoomDAO-specific methods ──────────────────────────────────────
 
     @Override
     public List<Room> findByBuilding(String building) throws SQLException {

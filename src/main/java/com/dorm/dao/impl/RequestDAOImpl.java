@@ -11,12 +11,7 @@ import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
 
-/**
- * Concrete DAO implementation for the 'request' table.
- */
 public class RequestDAOImpl extends AbstractDAO<Request, Integer> implements RequestDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -71,7 +66,7 @@ public class RequestDAOImpl extends AbstractDAO<Request, Integer> implements Req
         ps.setTimestamp(6, entity.getRequestedTime() != null
                 ? entity.getRequestedTime()
                 : new Timestamp(System.currentTimeMillis()));
-        ps.setTimestamp(7, entity.getResolvedTime());   // nullable
+        ps.setTimestamp(7, entity.getResolvedTime());
         if (entity.getResolvedBy() != null) {
             ps.setInt(8, entity.getResolvedBy());
         } else {
@@ -95,8 +90,6 @@ public class RequestDAOImpl extends AbstractDAO<Request, Integer> implements Req
         }
         ps.setInt(9, entity.getRequestId());
     }
-
-    // ── RequestDAO-specific methods ───────────────────────────────────
 
     @Override
     public List<Request> findByStudentId(String studentId) throws SQLException {

@@ -9,12 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- * Concrete DAO implementation for the 'contract' table.
- */
 public class ContractDAOImpl extends AbstractDAO<Contract, Integer> implements ContractDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -68,8 +63,6 @@ public class ContractDAOImpl extends AbstractDAO<Contract, Integer> implements C
         ps.setString(5, entity.getContractStatus().name());
         ps.setInt(6, entity.getContractId());
     }
-
-    // ── ContractDAO-specific methods ──────────────────────────────────
 
     @Override
     public List<Contract> findByStudentId(String studentId) throws SQLException {

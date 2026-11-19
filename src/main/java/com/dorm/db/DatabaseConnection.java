@@ -4,15 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/**
- * Singleton database connection manager for PostgreSQL.
- * Provides a thread-safe single connection instance.
- *
- * Configure the URL, USER, and PASSWORD constants before first use.
+/*
+ * Singleton PostgreSQL connection manager.
+ * Note: A connection pool (e.g., HikariCP) is recommended for concurrent environments.
  */
 public class DatabaseConnection {
 
-    // ── Connection configuration ──────────────────────────────────────
+    // Database credentials and connection URL
     private static final String URL  = "jdbc:postgresql://localhost:5432/dorm_management";
     private static final String USER = "postgres";
     private static final String PASS = "postgres";
@@ -32,9 +30,6 @@ public class DatabaseConnection {
         }
     }
 
-    /**
-     * Returns the singleton instance, creating it if necessary (double-checked locking).
-     */
     public static DatabaseConnection getInstance() {
         if (instance == null) {
             synchronized (DatabaseConnection.class) {
@@ -46,10 +41,7 @@ public class DatabaseConnection {
         return instance;
     }
 
-    /**
-     * Returns the active JDBC connection.
-     * Automatically reconnects if the connection was closed.
-     */
+    // Auto-reconnect if connection was closed or dropped
     public Connection getConnection() {
         try {
             if (connection == null || connection.isClosed()) {
@@ -62,7 +54,6 @@ public class DatabaseConnection {
         return connection;
     }
 
-    /** Closes the connection and resets the singleton. */
     public void closeConnection() {
         try {
             if (connection != null && !connection.isClosed()) {

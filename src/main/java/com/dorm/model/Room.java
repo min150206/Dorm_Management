@@ -2,14 +2,6 @@ package com.dorm.model;
 
 import com.dorm.model.enums.RoomStatus;
 
-/**
- * Entity representing the 'room' table.
- *
- * Relationships:
- *  - N-to-1 with RoomType (categorizes, via room_type_id FK)
- *  - 1-to-N with Request  (reported for)
- *  - 1-to-N with Contract (assigned to)
- */
 public class Room extends BaseEntity<Integer> {
 
     private int        roomTypeId;
@@ -31,8 +23,6 @@ public class Room extends BaseEntity<Integer> {
         this.roomStatus       = roomStatus;
     }
 
-    // ── Getters & Setters ─────────────────────────────────────────────
-
     public Integer    getRoomId()                                { return getId(); }
     public void       setRoomId(Integer id)                      { setId(id); }
 
@@ -50,14 +40,6 @@ public class Room extends BaseEntity<Integer> {
 
     public RoomStatus getRoomStatus()                            { return roomStatus; }
     public void       setRoomStatus(RoomStatus roomStatus)       { this.roomStatus = roomStatus; }
-
-    // ── BaseEntity contract ───────────────────────────────────────────
-
-    @Override
-    public String getTableName()    { return "room"; }
-
-    @Override
-    public String getIdColumnName() { return "room_id"; }
 
     @Override
     public String toString() {

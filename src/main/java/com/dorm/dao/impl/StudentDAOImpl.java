@@ -11,13 +11,7 @@ import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Concrete DAO implementation for the 'student' table.
- * Note: student_id is VARCHAR (String PK), not SERIAL.
- */
 public class StudentDAOImpl extends AbstractDAO<Student, String> implements StudentDAO {
-
-    // ── AbstractDAO template methods ──────────────────────────────────
 
     @Override
     protected String getTableName() {
@@ -81,10 +75,7 @@ public class StudentDAOImpl extends AbstractDAO<Student, String> implements Stud
         ps.setString(5, entity.getStudentId());
     }
 
-    /**
-     * Override save() because student_id is not auto-generated (VARCHAR PK).
-     * We skip reading generated keys since the PK is provided by the caller.
-     */
+    // student_id is a manual VARCHAR primary key, no auto-generated keys to fetch
     @Override
     public Student save(Student entity) throws SQLException {
         String sql = getInsertSQL();
@@ -94,8 +85,6 @@ public class StudentDAOImpl extends AbstractDAO<Student, String> implements Stud
         }
         return entity;
     }
-
-    // ── StudentDAO-specific methods ───────────────────────────────────
 
     @Override
     public Optional<Student> findByAccountId(int accountId) throws SQLException {

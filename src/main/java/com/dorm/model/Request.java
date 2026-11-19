@@ -3,14 +3,6 @@ package com.dorm.model;
 import com.dorm.model.enums.RequestStatus;
 import java.sql.Timestamp;
 
-/**
- * Entity representing the 'request' table.
- *
- * Relationships:
- *  - N-to-1 with Student (submits, via student_id FK)
- *  - N-to-1 with Room    (reported for, via room_id FK)
- *  - N-to-1 with Account (resolves, via resolved_by FK → account_id)
- */
 public class Request extends BaseEntity<Integer> {
 
     private String        studentId;
@@ -20,7 +12,7 @@ public class Request extends BaseEntity<Integer> {
     private RequestStatus requestStatus;
     private Timestamp     requestedTime;
     private Timestamp     resolvedTime;
-    private Integer       resolvedBy;      // nullable — FK to account.account_id
+    private Integer       resolvedBy; // Nullable: references account.account_id
 
     public Request() {
     }
@@ -38,8 +30,6 @@ public class Request extends BaseEntity<Integer> {
         this.resolvedTime  = resolvedTime;
         this.resolvedBy    = resolvedBy;
     }
-
-    // ── Getters & Setters ─────────────────────────────────────────────
 
     public Integer       getRequestId()                                { return getId(); }
     public void          setRequestId(Integer id)                       { setId(id); }
@@ -67,14 +57,6 @@ public class Request extends BaseEntity<Integer> {
 
     public Integer       getResolvedBy()                               { return resolvedBy; }
     public void          setResolvedBy(Integer resolvedBy)             { this.resolvedBy = resolvedBy; }
-
-    // ── BaseEntity contract ───────────────────────────────────────────
-
-    @Override
-    public String getTableName()    { return "request"; }
-
-    @Override
-    public String getIdColumnName() { return "request_id"; }
 
     @Override
     public String toString() {
